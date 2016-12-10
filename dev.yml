@@ -1,0 +1,53 @@
+version: '2'
+
+
+services:
+  nginx:
+    build:
+      dockerfile: dev.Dockerfile
+    volumes:
+#      - ./data/dev/frontend:/srv/frontend
+       - /home/frontend/test_frontend:/srv/frontend
+    ports:
+      - "8770:8770"
+  
+  # mongodb:
+    # volumes:
+      # - ./data/dev/mongodb:/data/db
+
+  accounts:
+    build:
+      dockerfile: dev.Dockerfile
+      args:
+        - ACCOUNTS_VERSION # exposed from an environment variable
+        - WEB_HOST=0.0.0.0
+        - WEB_PORT=5000
+        - DB_HOST=mongodb
+        - DB_PORT=27017
+    volumes:
+      - ./data/dev/accounts:/srv/accounts
+
+  innopoints:
+    build:
+      dockerfile: dev.Dockerfile
+      args:
+        - INNOPOINTS_VERSION # exposed from an environment variable
+        - WEB_HOST=0.0.0.0
+        - WEB_PORT=4567
+        - DB_HOST=mysql
+        - DB_PORT=3306
+        - ACCOUNTS_HOST=accounts
+        - ACCOUNTS_PORT=5000
+        - ACCOUNTS_VERSION # exposed from an environment variable
+    volumes:
+      - ./data/dev/innopoints:/srv/innopoints
+  
+  mysql:
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  
+  # bot:
+  #   restart: always
+  #   environment:
+  #     BOT_TOKEN: ---
+

@@ -1,0 +1,44 @@
+version: '2'
+
+
+services:
+  nginx:
+    image: nginx:1.11
+    restart: always
+    build:
+      context: ./images/nginx
+    depends_on:
+      - accounts
+      - innopoints
+    ports:
+      - "8770:8770"
+  
+  mongodb:
+    image: mongo:3.3
+    restart: always
+    # build:
+      # context: ./images/mongodb
+  
+  accounts:
+    image: accounts
+    restart: always
+    build:
+      context: ./images/microservices/accounts
+    depends_on:
+      - mongodb
+  
+  innopoints:
+    image: innopoints
+    restart: always
+    build: 
+      context: ./images/microservices/innopoints
+    depends_on:
+      - mysql
+      - accounts
+
+  mysql:
+    image: mysql:5.5
+    restart: always
+  
+  # bot:
+  #   image: bot

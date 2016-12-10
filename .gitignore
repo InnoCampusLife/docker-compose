@@ -1,0 +1,17 @@
+.DS_Store
+
+data/dev/accounts/*
+!data/dev/accounts/.keep
+
+data/dev/frontend/*
+!data/dev/frontend/.keep
+
+data/dev/innopoints/*
+!data/dev/innopoints/.keep
+
+data/dev/mongodb/*
+!data/dev/mongodb/.keep
+
+data/prod/mongodb/*
+!data/prod/mongodb/.keep
+

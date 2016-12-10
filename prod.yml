@@ -1,0 +1,47 @@
+version: '2'
+
+
+# this configuration is IMMUTABLE so that the containers created will be immutable(except for data)
+
+
+services:
+  nginx:
+    build:
+      dockerfile: prod.Dockerfile
+      args:
+        - FRONTEND_VERSION # exposed from an environment variable
+    ports:
+      - "80:8770"
+
+  mongodb:
+    volumes:
+      - ./data/prod/mongodb:/data/db
+
+  accounts:
+    build:
+      dockerfile: prod.Dockerfile
+      args:
+        - ACCOUNTS_VERSION # exposed from an environment variable
+        - WEB_HOST=0.0.0.0
+        - WEB_PORT=5000
+        - DB_HOST=mongodb
+        - DB_PORT=27017
+
+  innopoints:
+    build:
+      dockerfile: prod.Dockerfile
+      args:
+        - INNOPOINTS_VERSION # exposed from an environment variable
+        - WEB_HOST=0.0.0.0
+        - WEB_PORT=4567
+        - DB_HOST=mysql
+        - DB_PORT=3306
+        - ACCOUNTS_HOST=accounts
+        - ACCOUNTS_PORT=5000
+        - ACCOUNTS_VERSION # exposed from an environment variable
+
+  # bot:
+  #   restart: always
+  #   environment:
+  #     BOT_TOKEN: ---
+
