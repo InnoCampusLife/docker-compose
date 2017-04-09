@@ -2,24 +2,27 @@ version: '2'
 
 
 services:
+  # common services
+
   nginx:
     build:
       dockerfile: dev.Dockerfile
     volumes:
-#      - ./data/dev/frontend:/srv/frontend
        - /home/frontend/test_frontend:/srv/frontend
     ports:
       - "8770:8770"
+
+  mysql:
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   
-  # mongodb:
-    # volumes:
-      # - ./data/dev/mongodb:/data/db
+  # microservices
 
   accounts:
     build:
       dockerfile: dev.Dockerfile
       args:
-        - ACCOUNTS_VERSION # exposed from an environment variable
+        - ACCOUNTS_VERSION=1.0 # exposed from an environment variable
         - WEB_HOST=0.0.0.0
         - WEB_PORT=5000
         - DB_HOST=mongodb
@@ -31,23 +34,22 @@ services:
     build:
       dockerfile: dev.Dockerfile
       args:
-        - INNOPOINTS_VERSION # exposed from an environment variable
+        - INNOPOINTS_VERSION=1.0 # exposed from an environment variable
         - WEB_HOST=0.0.0.0
         - WEB_PORT=4567
         - DB_HOST=mysql
         - DB_PORT=3306
         - ACCOUNTS_HOST=accounts
         - ACCOUNTS_PORT=5000
-        - ACCOUNTS_VERSION # exposed from an environment variable
+        - ACCOUNTS_VERSION=1.0 # exposed from an environment variable
     volumes:
       - ./data/dev/innopoints:/srv/innopoints
   
-  mysql:
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-  
-  # bot:
-  #   restart: always
-  #   environment:
-  #     BOT_TOKEN: ---
+  # other services
+
+  innowiki:
+    build:
+      dockerfile: dev.Dockerfile
+
+
 

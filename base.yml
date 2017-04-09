@@ -1,7 +1,14 @@
 version: '2'
 
 
+volumes:
+  wiki-data:
+    external: true
+
+
 services:
+  # common services
+
   nginx:
     image: nginx:1.11
     restart: always
@@ -10,14 +17,21 @@ services:
     depends_on:
       - accounts
       - innopoints
+      - innowiki
     ports:
       - "8770:8770"
+    volumes:
+      - "./images/services/innowiki/img/favicon.ico:/etc/nginx/html/favicon.ico:ro"
   
   mongodb:
     image: mongo:3.3
     restart: always
-    # build:
-      # context: ./images/mongodb
+  
+  mysql:
+    image: mysql:5.5
+    restart: always
+
+  # microservices
   
   accounts:
     image: accounts
@@ -36,9 +50,17 @@ services:
       - mysql
       - accounts
 
-  mysql:
-    image: mysql:5.5
-    restart: always
-  
-  # bot:
-  #   image: bot
+  # other services
+
+  innowiki:
+    image: ratijas/moinmoin
+    build:
+      context: ./images/services/innowiki
+    command: -t Europe/Moscow
+    env_file:
+      - wiki.env
+    volumes:
+      - "wiki-data:/usr/local/share/moin/data"
+
+
+
