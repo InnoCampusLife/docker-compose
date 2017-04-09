@@ -1,0 +1,3 @@
+[submodule "moinmoin-memodump"]
+	path = images/services/innowiki/moinmoin-memodump
+	url = https://github.com/dossist/moinmoin-memodump.git
