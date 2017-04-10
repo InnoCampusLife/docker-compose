@@ -152,7 +152,7 @@ class Config(multiconfig.DefaultConfig):
     #page_front_page = u"MyStartingPage"
 
     # b) if wiki content is maintained in many languages
-    page_front_page = u"FrontPage"
+    page_front_page = u"Front page"
 
     # The interwiki name used in interwiki links
     #interwikiname = u'UntitledWiki'
@@ -212,9 +212,9 @@ class Config(multiconfig.DefaultConfig):
     navi_bar = [
         # If you want to show your page_front_page here:
         u'%(page_front_page)s',
-        u'RecentChanges',
-        u'FindPage',
-        u'HelpContents',
+        u'Recent changes',
+        u'Search',
+        u'Help',
     ]
 
     # The default theme anonymous or new users get
@@ -261,5 +261,3 @@ class Config(multiconfig.DefaultConfig):
     # you maybe want to use user_checkbox_remove, user_checkbox_defaults, user_form_defaults,
     # user_form_disable, user_form_remove.
 
-    from MoinMoin import log
-    log.load_config('/usr/local/share/moin/config/logging/logfile_debug_auth')
