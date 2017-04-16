@@ -245,10 +245,7 @@ class Config(multiconfig.DefaultConfig):
     # This is a sample configuration snippet that shows how to use the ldap auth plugin.
     # See HelpOnAuthentication and HelpOnConfiguration for more infos.
 
-    from MoinMoin.auth.log import AuthLog
-
     auth = [
-        AuthLog(),
         ldap('ldaps://edu.innopolis.ru:636', 'edu', 'ldap_edu'),
         ldap('ldaps://uni.innopolis.ru:636', 'uni', 'ldap_uni'),
     ]
