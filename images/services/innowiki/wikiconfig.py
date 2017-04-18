@@ -165,13 +165,13 @@ class Config(multiconfig.DefaultConfig):
 
     # This is checked by some rather critical and potentially harmful actions,
     # like despam or PackageInstaller action:
-    superuser = [u"i.tkachenko", u"m.skoriukov"]
+    superuser = [u"i.tkachenko", u"m.skoriukov", u"k.gusmanov", u"a.pavlenko"]
 
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
     # All acl_rights_xxx options must use unicode [Unicode]
     acl_rights_default = u"+AdminGroup:delete,revert Known:read,write All:"
-    acl_rights_before = u"i.tkachenko,m.skoriukov:read,write,delete,revert,admin"
+    acl_rights_before = u"i.tkachenko,m.skoriukov,k.gusmanov,a.pavlenko:read,write,delete,revert,admin"
     acl_hierarchic = True
     acl_rights_valid = ["read", "write", "delete", "revert", "admin"]
 
