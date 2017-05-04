@@ -6,7 +6,9 @@ ENV FRONTEND_VERSION=$FRONTEND_VERSION
 
 
 RUN rm /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/nginx.conf || true
 ADD fs/etc/nginx/conf.d/ /etc/nginx/conf.d
+ADD fs/etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN apt-get update \
     && apt-get -y install wget
